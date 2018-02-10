@@ -16,4 +16,32 @@ class Board
     grid[7].map! { Piece.new("white") }
   end
 
+  # monkey patching bracket method to take array of x, y coords
+  def [](pos)
+    row, col = pos
+    @grid[row][col]
+  end
+
+  def []=(pos, input)
+    row, col = pos
+    @grid[row][col] = input
+  end
+
+  def move_piece(start_pos, end_pos)
+    raise 'no piece at start position' if @grid[start_pos].is_a?(NullPiece)
+    @grid[end_pos] = @grid[start_pos]
+    @grid[start_pos] = NullPiece.new
+  end
+
+  def valid_move?
+    
+  end
+
 end
+
+
+# The Board class should have a #move_piece(start_pos, end_pos) method.
+#This should update the 2D grid and also the moved piece's position.
+#You'll want to raise an exception if:
+#there is no piece at start_pos or
+#the piece cannot move to end_pos.
