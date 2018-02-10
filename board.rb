@@ -33,8 +33,9 @@ class Board
     @grid[start_pos] = NullPiece.new
   end
 
-  def valid_move?
-    
+  def valid_move?(start_pos, end_pos)
+    return false if end_pos.first > 7 || end_pos.last > 7
+
   end
 
 end
