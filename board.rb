@@ -28,21 +28,22 @@ class Board
   end
 
   def move_piece(start_pos, end_pos)
-    raise 'no piece at start position' if @grid[start_pos].is_a?(NullPiece)
-    @grid[end_pos] = @grid[start_pos]
-    @grid[start_pos] = NullPiece.new
+    debugger
+    raise 'no piece at start position' if self[start_pos].is_a?(NullPiece)
+    raise 'invalid move' if !valid_move?(start_pos, end_pos)
+    self[end_pos] = self[start_pos]
+    self[start_pos] = NullPiece.new
   end
 
   def valid_move?(start_pos, end_pos)
-    return false if end_pos.first > 7 || end_pos.last > 7
+    return false if !valid_pos?(end_pos)
+    return false if self[start_pos].piece == self[end_pos].piece
+    true
+  end
 
+  def valid_pos?(pos)
+    return false if pos.any? { |el| el > 7 || el < 0 }
+    true
   end
 
 end
-
-
-# The Board class should have a #move_piece(start_pos, end_pos) method.
-#This should update the 2D grid and also the moved piece's position.
-#You'll want to raise an exception if:
-#there is no piece at start_pos or
-#the piece cannot move to end_pos.
